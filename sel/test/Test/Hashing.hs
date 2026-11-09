@@ -6,6 +6,7 @@ module Test.Hashing where
 import Control.Monad (void)
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Unsafe as BS
+import Data.Maybe (isNothing)
 import Foreign hiding (void)
 import Foreign.C
 import LibSodium.Bindings.GenericHashing (cryptoGenericHash, cryptoGenericHashBytes)
@@ -92,7 +93,7 @@ testBinaryWrongLength :: Assertion
 testBinaryWrongLength = do
   assertBool
     "A 16-byte input is rejected for a hash key"
-    (Hashing.binaryToHashKey (BS.replicate 16 0) == Nothing)
+    (isNothing (Hashing.binaryToHashKey (BS.replicate 16 0)))
   assertEqual
     "A 16-byte input is rejected for a hash"
     Nothing

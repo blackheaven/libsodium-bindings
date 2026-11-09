@@ -254,6 +254,7 @@ module Sel.SecretKey.Authentication where
   authenticationKeyFromHexByteString :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> Data.Either.Either Data.Text.Internal.Text AuthenticationKey
   authenticationKeyToBinary :: AuthenticationKey -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString
   authenticationTagFromHexByteString :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> Data.Either.Either Data.Text.Internal.Text AuthenticationTag
+  authenticationTagToBinary :: AuthenticationTag -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString
   authenticationTagToHexByteString :: AuthenticationTag -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString
   binaryToAuthenticationKey :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> GHC.Maybe.Maybe AuthenticationKey
   binaryToAuthenticationTag :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> GHC.Maybe.Maybe AuthenticationTag

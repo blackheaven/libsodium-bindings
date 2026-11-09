@@ -3,6 +3,7 @@
 module Test.PublicKey.Signature where
 
 import qualified Data.ByteString as BS
+import Data.Maybe (isNothing)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -54,10 +55,10 @@ testBinaryWrongLength :: Assertion
 testBinaryWrongLength = do
   assertBool
     "A 16-byte input is rejected for a public key"
-    (binaryToPublicKey (BS.replicate 16 0) == Nothing)
+    (isNothing (binaryToPublicKey (BS.replicate 16 0)))
   assertBool
     "A 16-byte input is rejected for a secret key"
-    (binaryToSecretKey (BS.replicate 16 0) == Nothing)
+    (isNothing (binaryToSecretKey (BS.replicate 16 0)))
 
 testHashSerialisedPublicKey :: Assertion
 testHashSerialisedPublicKey = do
