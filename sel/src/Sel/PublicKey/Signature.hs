@@ -177,7 +177,7 @@ generateKeyPair = do
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" publicKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" publicKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 publicKeyToBinary :: PublicKey -> StrictByteString
 publicKeyToBinary (PublicKey pkFPtr) =
@@ -191,7 +191,7 @@ publicKeyToBinary (PublicKey pkFPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToPublicKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToPublicKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToPublicKey :: StrictByteString -> Maybe PublicKey
 binaryToPublicKey bs
@@ -210,7 +210,7 @@ binaryToPublicKey bs
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" secretKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" secretKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 secretKeyToBinary :: SecretKey -> StrictByteString
 secretKeyToBinary (SecretKey skFPtr) =
@@ -224,7 +224,7 @@ secretKeyToBinary (SecretKey skFPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToSecretKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToSecretKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToSecretKey :: StrictByteString -> Maybe SecretKey
 binaryToSecretKey bs
@@ -334,7 +334,7 @@ mkSignature message signature = unsafeDupablePerformIO $
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" signedMessageToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" signedMessageToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 signedMessageToBinary :: SignedMessage -> StrictByteString
 signedMessageToBinary signedMessage = getSignature signedMessage <> unsafeGetMessage signedMessage
@@ -346,7 +346,7 @@ signedMessageToBinary signedMessage = getSignature signedMessage <> unsafeGetMes
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToSignedMessage "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToSignedMessage "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToSignedMessage :: StrictByteString -> Maybe SignedMessage
 binaryToSignedMessage bs

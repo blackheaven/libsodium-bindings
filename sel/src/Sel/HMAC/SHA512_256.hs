@@ -311,7 +311,7 @@ authenticationKeyFromHexByteString hexKey = unsafeDupablePerformIO $
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" authenticationKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" authenticationKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 authenticationKeyToBinary :: AuthenticationKey -> StrictByteString
 authenticationKeyToBinary (AuthenticationKey authenticationKeyForeignPtr) =
@@ -325,7 +325,7 @@ authenticationKeyToBinary (AuthenticationKey authenticationKeyForeignPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToAuthenticationKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToAuthenticationKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToAuthenticationKey :: StrictByteString -> Maybe AuthenticationKey
 binaryToAuthenticationKey binaryKey
@@ -413,7 +413,7 @@ authenticationTagToBinary (AuthenticationTag fPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToAuthenticationTag "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToAuthenticationTag "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToAuthenticationTag :: StrictByteString -> Maybe AuthenticationTag
 binaryToAuthenticationTag binaryTag
@@ -447,9 +447,9 @@ authenticationTagFromHexByteString hexTag = unsafeDupablePerformIO $
           Foreign.withForeignPtr hashForeignPtr $ \hashPtr ->
             -- We copy bytes from 'outsideTagPtr' to 'hashPtr'.
             Foreign.copyArray hashPtr outsideTagPtr outsideTagLength
-          pure
-            $ Right
-            $ AuthenticationTag
-              (Foreign.castForeignPtr @CChar @CUChar hashForeignPtr)
+          pure $
+            Right $
+              AuthenticationTag
+                (Foreign.castForeignPtr @CChar @CUChar hashForeignPtr)
         else pure $ Left $ Text.pack "Authentication tag is too short"
     Left msg -> pure $ Left msg

@@ -184,7 +184,7 @@ newSecretKeyWith action = do
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" secretKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" secretKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 secretKeyToBinary :: SecretKey -> StrictByteString
 secretKeyToBinary (SecretKey fPtr) =
@@ -199,7 +199,7 @@ secretKeyToBinary (SecretKey fPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToSecretKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToSecretKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToSecretKey :: StrictByteString -> Maybe SecretKey
 binaryToSecretKey bs
@@ -299,7 +299,7 @@ nonceToHexByteString (Nonce nonceForeignPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" nonceToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" nonceToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 nonceToBinary :: Nonce -> StrictByteString
 nonceToBinary (Nonce fPtr) =
@@ -314,7 +314,7 @@ nonceToBinary (Nonce fPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToNonce "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToNonce "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToNonce :: StrictByteString -> Maybe Nonce
 binaryToNonce bs
@@ -398,11 +398,11 @@ ciphertextFromHexByteString hexCiphertext = unsafeDupablePerformIO $
           Foreign.withForeignPtr ciphertextForeignPtr $ \ciphertextPtr ->
             -- We copy bytes from 'outsideCiphertextPtr' to 'ciphertextPtr'.
             Foreign.copyArray ciphertextPtr outsideCiphertextPtr outsideCiphertextLength
-          pure
-            $ Right
-            $ Ciphertext
-              (fromIntegral @Int @CULLong outsideCiphertextLength - fromIntegral @CSize @CULLong cryptoSecretboxMACBytes)
-              (Foreign.castForeignPtr @CChar @CUChar ciphertextForeignPtr)
+          pure $
+            Right $
+              Ciphertext
+                (fromIntegral @Int @CULLong outsideCiphertextLength - fromIntegral @CSize @CULLong cryptoSecretboxMACBytes)
+                (Foreign.castForeignPtr @CChar @CUChar ciphertextForeignPtr)
         else pure $ Left $ Text.pack "Ciphertext is too short"
     Left msg -> pure $ Left msg
 

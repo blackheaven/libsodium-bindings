@@ -121,7 +121,7 @@ newHashKey = do
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" hashKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" hashKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 hashKeyToBinary :: HashKey -> StrictByteString
 hashKeyToBinary (HashKey fPtr) =
@@ -135,7 +135,7 @@ hashKeyToBinary (HashKey fPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToHashKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToHashKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToHashKey :: StrictByteString -> Maybe HashKey
 binaryToHashKey binaryKey
@@ -265,7 +265,7 @@ hashToBinary (Hash fPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToHash "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToHash "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToHash :: StrictByteString -> Maybe Hash
 binaryToHash binaryHash

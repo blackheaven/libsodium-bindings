@@ -273,7 +273,7 @@ unsafeSecretKeyToHexByteString (SecretKey secretKeyForeignPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" secretKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" secretKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 secretKeyToBinary :: SecretKey -> StrictByteString
 secretKeyToBinary (SecretKey fPtr) =
@@ -288,7 +288,7 @@ secretKeyToBinary (SecretKey fPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToSecretKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToSecretKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToSecretKey :: StrictByteString -> Maybe SecretKey
 binaryToSecretKey bs
@@ -306,7 +306,7 @@ binaryToSecretKey bs
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" publicKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" publicKeyToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 publicKeyToBinary :: PublicKey -> StrictByteString
 publicKeyToBinary (PublicKey fPtr) =
@@ -321,7 +321,7 @@ publicKeyToBinary (PublicKey fPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToPublicKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToPublicKey "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToPublicKey :: StrictByteString -> Maybe PublicKey
 binaryToPublicKey bs
@@ -410,7 +410,7 @@ nonceToHexByteString (Nonce nonceForeignPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" nonceToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" nonceToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 nonceToBinary :: Nonce -> StrictByteString
 nonceToBinary (Nonce fPtr) =
@@ -425,7 +425,7 @@ nonceToBinary (Nonce fPtr) =
 --
 -- @since 0.2.0.0
 #if __GLASGOW_HASKELL__ >= 908
-{-# WARNING in "x-unsafe-serialization" binaryToNonce "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+{-# WARNING in "x-unsafe-serialization" binaryToNonce "This function serializes raw cryptographic key material. Only use it if you know what you are doing." #-}
 #endif
 binaryToNonce :: StrictByteString -> Maybe Nonce
 binaryToNonce bs
@@ -500,11 +500,11 @@ ciphertextFromHexByteString hexByteString = unsafeDupablePerformIO $
           ciphertextForeignPtr <- BS.mallocByteString @CChar outsideCiphertextLength
           Foreign.withForeignPtr ciphertextForeignPtr $ \ciphertextPtr ->
             Foreign.copyArray ciphertextPtr outsideCiphertextPtr outsideCiphertextLength
-          pure
-            $ Right
-            $ Ciphertext
-              (fromIntegral @Int @CULLong outsideCiphertextLength - fromIntegral @CSize @CULLong cryptoBoxMACBytes)
-              (Foreign.castForeignPtr @CChar @CUChar ciphertextForeignPtr)
+          pure $
+            Right $
+              Ciphertext
+                (fromIntegral @Int @CULLong outsideCiphertextLength - fromIntegral @CSize @CULLong cryptoBoxMACBytes)
+                (Foreign.castForeignPtr @CChar @CUChar ciphertextForeignPtr)
         else pure $ Left $ Text.pack "Cipher text is too short"
     Left msg -> error (Text.unpack msg)
 
