@@ -226,6 +226,7 @@ module Sel.PublicKey.Signature where
   data SignedMessage = Sel.PublicKey.Signature.SignedMessage {Sel.PublicKey.Signature.messageLength :: Foreign.C.Types.CSize, Sel.PublicKey.Signature.messageForeignPtr :: GHC.ForeignPtr.ForeignPtr Foreign.C.Types.CUChar, Sel.PublicKey.Signature.signatureForeignPtr :: GHC.ForeignPtr.ForeignPtr Foreign.C.Types.CUChar}
   binaryToPublicKey :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> GHC.Maybe.Maybe PublicKey
   binaryToSecretKey :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> GHC.Maybe.Maybe SecretKey
+  binaryToSignedMessage :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> GHC.Maybe.Maybe SignedMessage
   generateKeyPair :: GHC.Types.IO (PublicKey, SecretKey)
   getSignature :: SignedMessage -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString
   mkSignature :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> SignedMessage
@@ -233,6 +234,7 @@ module Sel.PublicKey.Signature where
   publicKeyToBinary :: PublicKey -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString
   secretKeyToBinary :: SecretKey -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString
   signMessage :: bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString -> SecretKey -> GHC.Types.IO SignedMessage
+  signedMessageToBinary :: SignedMessage -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString
   unsafeGetMessage :: SignedMessage -> bytestring-0.11.5.3:Data.ByteString.Internal.Type.StrictByteString
 
 module Sel.Scrypt where

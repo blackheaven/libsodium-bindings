@@ -5,6 +5,7 @@
 * Add binary conversion pairs (`xToBinary` / `binaryToX`) for every key, hash, nonce, authentication tag and secret-stream header in the `sel` package [#205](https://github.com/haskell-cryptography/libsodium-bindings/issues/205)
 * Deprecate `unsafeAuthenticationKeyToBinary` in favour of `authenticationKeyToBinary`; this also fixes `Sel.HMAC.SHA512_256.unsafeAuthenticationKeyToBinary` erroneously returning hex-encoded bytes
 * Attach the custom warning category `x-unsafe-serialization` to the binary serialization helpers; consumers must silence it with `-Wno-x-unsafe-serialization` (GHC ≥ 9.8)
+* Add `signedMessageToBinary` / `binaryToSignedMessage` for `Sel.PublicKey.Signature` [#205](https://github.com/haskell-cryptography/libsodium-bindings/issues/205)
 
 ## sel-0.1.0.0
 

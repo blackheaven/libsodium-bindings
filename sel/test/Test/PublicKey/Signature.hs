@@ -3,7 +3,7 @@
 module Test.PublicKey.Signature where
 
 import qualified Data.ByteString as BS
-import Data.Maybe (isNothing)
+import Data.Maybe (isJust, isNothing)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -18,6 +18,7 @@ spec =
     [ testCase "Sign a message with a public key and decrypt it with a secret key" testSignMessage
     , testCase "Round-trip public key binary serialisation" testPublicKeyBinaryRoundtrip
     , testCase "Round-trip secret key binary serialisation" testSecretKeyBinaryRoundtrip
+    , testCase "Round-trip signed message binary serialisation" testSignedMessageBinaryRoundtrip
     , testCase "Wrong-length binary input is rejected" testBinaryWrongLength
     , testCase "Hash a serialised public key" testHashSerialisedPublicKey
     , testCase "Sign and open with re-imported keys" testSignVerifyWithImportedKeys
@@ -51,6 +52,21 @@ testSecretKeyBinaryRoundtrip = do
     (Just (secretKeyToBinary secretKey))
     roundtripped
 
+testSignedMessageBinaryRoundtrip :: Assertion
+testSignedMessageBinaryRoundtrip = do
+  (publicKey, secretKey) <- generateKeyPair
+  signedMessage <- signMessage "hello hello" secretKey
+  let serialized = signedMessageToBinary signedMessage
+  roundtripped <- assertJust (binaryToSignedMessage serialized)
+  assertEqual
+    "Signed message is recovered from its binary form"
+    serialized
+    (signedMessageToBinary roundtripped)
+  assertEqual
+    "Round-tripped signed message opens with the correct key"
+    (Just "hello hello")
+    (openMessage roundtripped publicKey)
+
 testBinaryWrongLength :: Assertion
 testBinaryWrongLength = do
   assertBool
@@ -59,6 +75,15 @@ testBinaryWrongLength = do
   assertBool
     "A 16-byte input is rejected for a secret key"
     (isNothing (binaryToSecretKey (BS.replicate 16 0)))
+  assertBool
+    "A 16-byte input is rejected for a signed message"
+    (isNothing (binaryToSignedMessage (BS.replicate 16 0)))
+  assertBool
+    "A 63-byte input is rejected for a signed message"
+    (isNothing (binaryToSignedMessage (BS.replicate 63 0)))
+  assertBool
+    "A 64-byte input is accepted for a signed message with an empty message part"
+    (isJust (binaryToSignedMessage (BS.replicate 64 0)))
 
 testHashSerialisedPublicKey :: Assertion
 testHashSerialisedPublicKey = do

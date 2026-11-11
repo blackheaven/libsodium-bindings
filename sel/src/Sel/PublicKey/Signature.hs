@@ -36,6 +36,8 @@ module Sel.PublicKey.Signature
   , binaryToPublicKey
   , secretKeyToBinary
   , binaryToSecretKey
+  , signedMessageToBinary
+  , binaryToSignedMessage
   )
 where
 
@@ -324,3 +326,33 @@ mkSignature message signature = unsafeDupablePerformIO $
           Foreign.copyArray messagePtr (Foreign.castPtr messageStringPtr) messageLength
           Foreign.copyArray signaturePtr (Foreign.castPtr signatureStringPtr) (fromIntegral cryptoSignBytes)
       pure $ SignedMessage (fromIntegral @Int @CSize messageLength) messageForeignPtr signatureForeignPtr
+
+-- | Convert a 'SignedMessage' to a strict binary 'StrictByteString'.
+--
+-- The result is the signature followed by the message, matching libsodium's
+-- combined mode for Ed25519 signatures.
+--
+-- @since 0.2.0.0
+#if __GLASGOW_HASKELL__ >= 908
+{-# WARNING in "x-unsafe-serialization" signedMessageToBinary "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+#endif
+signedMessageToBinary :: SignedMessage -> StrictByteString
+signedMessageToBinary signedMessage = getSignature signedMessage <> unsafeGetMessage signedMessage
+
+-- | Convert a binary 'StrictByteString' to a 'SignedMessage'.
+--
+-- The input is interpreted as the signature followed by the message and must
+-- be at least 'cryptoSignBytes' bytes long; an empty message is allowed.
+--
+-- @since 0.2.0.0
+#if __GLASGOW_HASKELL__ >= 908
+{-# WARNING in "x-unsafe-serialization" binaryToSignedMessage "This function serializes raw cryptographic key material. Only use it if you know what you are doing. Silence this warning with -Wno-x-unsafe-serialization." #-}
+#endif
+binaryToSignedMessage :: StrictByteString -> Maybe SignedMessage
+binaryToSignedMessage bs
+  | BS.length bs < fromIntegral cryptoSignBytes = Nothing
+  | otherwise =
+      Just $
+        mkSignature
+          (BS.drop (fromIntegral cryptoSignBytes) bs)
+          (BS.take (fromIntegral cryptoSignBytes) bs)
